@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import serverless from "serverless-http";
-import { ProductsController, OrdersController } from "./controller.js";
+import { ProductsController, OrdersController } from "./controllers/productController.js";
 
 const app = express();
 app.use(cors());
