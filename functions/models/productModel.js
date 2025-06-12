@@ -67,6 +67,28 @@ export const OrdersModel = {
         if (!order.exists()) throw new Error("Order not found");
         return { id: order.id, ...order.data() };
     },
+    async getByDateAndStatus(startDate, endDate, status) {
+        const ordersCollection = collection(db, "orders");
+        let q;
+
+        if (status) {
+            q = query(
+                ordersCollection,
+                where("orderDate", ">=", startDate),
+                where("orderDate", "<=", endDate),
+                where("status", "==", status)
+            );
+        } else {
+            q = query(
+                ordersCollection,
+                where("orderDate", ">=", startDate),
+                where("orderDate", "<=", endDate)
+            );
+        }
+
+        const snapshot = await getDocs(q);
+        return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    },
     async create(data) {
         const ordersCollection = collection(db, "orders");
         const docRef = await addDoc(ordersCollection, data);

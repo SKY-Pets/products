@@ -17,7 +17,8 @@ router.delete("/products/:id", ProductsController.delete);
 
 // Rutas de pedidos
 router.get("/orders", OrdersController.getAll);
-router.get("/orders/:id", OrdersController.getById);
+router.get("/orders/id/:id", OrdersController.getById);
+router.get("/orders/filter", OrdersController.getByDateAndStatus);
 router.post("/orders", OrdersController.create);
 router.put("/orders/:id", OrdersController.update);
 router.delete("/orders/:id", OrdersController.delete);

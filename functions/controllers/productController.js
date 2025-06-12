@@ -60,6 +60,23 @@ export const OrdersController = {
             res.status(404).json({ error: error.message });
         }
     },
+    async getByDateAndStatus(req, res) {
+        console.log(req.query+'getByDateAndStatus controller');
+        
+        try {
+            const { startDate, endDate, status } = req.query;
+            console.log(startDate, endDate, status);
+            
+            if (!startDate || !endDate) {
+                return res.status(400).json({ error: "Start date and end date are required." });
+            }
+
+            const orders = await OrdersModel.getByDateAndStatus(startDate, endDate, status);
+            res.status(200).json(orders);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    },
     async create(req, res) {
         try {
             const id = await OrdersModel.create(req.body);
