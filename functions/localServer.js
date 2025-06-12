@@ -25,6 +25,7 @@ router.get("/orders/filter", OrdersController.getByDateAndStatus);
 router.post("/orders", OrdersController.create);
 router.put("/orders/:id", OrdersController.update);
 router.delete("/orders/:id", OrdersController.delete);
+router.patch("/orders/id/:id", OrdersController.updateOrderStatus);
 
 
 // Registrar rutas
