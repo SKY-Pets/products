@@ -3,7 +3,11 @@ import { ProductsModel, OrdersModel } from "../models/productModel.js";
 export const ProductsController = {
     async getAll(req, res) {
         try {
-            const products = await ProductsModel.getAll();
+            let products = await ProductsModel.getAll();
+
+            // Ordenar alfabéticamente por product.name
+            products = products.sort((a, b) => a.name.localeCompare(b.name));
+
             res.status(200).json(products);
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -61,11 +65,11 @@ export const OrdersController = {
         }
     },
     async getByDateAndStatus(req, res) {
-        
+
         try {
             const { startDate, endDate, status } = req.query;
             console.log(startDate, endDate, status);
-            
+
             if (!startDate || !endDate) {
                 return res.status(400).json({ error: "Start date and end date are required." });
             }
