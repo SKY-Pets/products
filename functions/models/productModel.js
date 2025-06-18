@@ -41,10 +41,12 @@ export const ProductsModel = {
         return { id: product.id, ...product.data() };
     },
     async create(data) {
-        const productsCollection = collection(db, "products");
-        const docRef = await addDoc(productsCollection, data);
-        return docRef.id;
-    },
+    const productsCollection = collection(db, "products");
+    const docRef = await addDoc(productsCollection, data);
+    // Devolver el producto completo, incluyendo el ID generado
+    const product = { id: docRef.id, ...data };
+    return product;
+},
     async update(productId, data) {
         const productRef = doc(db, "products", productId);
         await updateDoc(productRef, data);
