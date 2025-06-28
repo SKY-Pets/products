@@ -107,14 +107,14 @@ export const OrdersController = {
     async updateOrderStatus(req, res) {
         try {
             const { id } = req.params; // ID del pedido desde la URL
-            const { estado } = req.body; // Nuevo estado desde el cuerpo de la solicitud
+            const { status } = req.body; // Nuevo status desde el cuerpo de la solicitud
 
-            if (!estado) {
-                return res.status(400).json({ error: "The 'estado' field is required." });
+            if (!status) {
+                return res.status(400).json({ error: "The 'status' field is required." });
             }
 
-            await OrdersModel.update(id, { estado }); // Actualiza el estado
-            res.status(200).json({ message: `Order status updated to '${estado}' successfully` });
+            await OrdersModel.update(id, { status }); // Actualiza el status
+            res.status(200).json({ message: `Order status updated to '${status}' successfully` });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
